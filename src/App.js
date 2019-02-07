@@ -23,6 +23,20 @@ class App extends Component {
     })
   }
 
+  const newRandomCard = () => {
+    const id = Math.random().toString(36).substring(2, 4)
+      + Math.random().toString(36).substring(2, 4);
+    return {
+      id,
+      title: `Random Card ${id}`,
+      content: 'lorem ipsum',
+    }
+
+  handleGenRanCard = (){
+
+    }
+  }
+
   render() {
     const { store } = this.props
     return (
