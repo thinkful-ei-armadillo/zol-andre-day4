@@ -10,6 +10,19 @@ class App extends Component {
     }
   };
 
+  handleDeleteCard = (id) => {
+    console.log(id)
+    this.setState({
+      store: {
+                lists: this.props.store.lists.map(list => {
+                list.cardIds = list.cardIds.filter(card => card !== id)
+                return list;
+              }),
+                allCards: this.props.allCards
+             }
+    })
+  }
+
   render() {
     const { store } = this.props
     return (
@@ -23,6 +36,7 @@ class App extends Component {
               key={list.id}
               header={list.header}
               cards={list.cardIds.map(id => store.allCards[id])}
+              handleDeleteCard = {this.handleDeleteCard}
             />
           ))}
         </div>
