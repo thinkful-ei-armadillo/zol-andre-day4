@@ -23,18 +23,32 @@ class App extends Component {
     })
   }
 
-  const newRandomCard = () => {
+  newRandomCard = (listId) => {
     const id = Math.random().toString(36).substring(2, 4)
       + Math.random().toString(36).substring(2, 4);
-    return {
+
+    /*let allCards = this.props.store.allCards;
+    allCards[id] = {
       id,
       title: `Random Card ${id}`,
       content: 'lorem ipsum',
-    }
+    };*/
 
-  handleGenRanCard = (){
-
-    }
+    this.setState({
+      store: {
+        lists: this.props.store.lists.map(list => {
+          if(list.id === listId) {
+            list.cardIds = [...list.cardIds, id];
+          }
+          return list;
+        }),
+        allCards: Object.assign(this.props.store.allCards, {[id]: {
+          id,
+          title: `Random Card ${id}`,
+          content: 'lorem ipsum',
+        }})
+      }
+    });
   }
 
   render() {
@@ -48,6 +62,8 @@ class App extends Component {
           {store.lists.map(list => (
             <List
               key={list.id}
+              id={list.id}
+              newRandomCard = {this.newRandomCard}
               header={list.header}
               cards={list.cardIds.map(id => store.allCards[id])}
               handleDeleteCard = {this.handleDeleteCard}
