@@ -26,13 +26,18 @@ class App extends Component {
   newRandomCard = (listId) => {
     const id = Math.random().toString(36).substring(2, 4)
       + Math.random().toString(36).substring(2, 4);
-
+    console.log(id)
     /*let allCards = this.props.store.allCards;
     allCards[id] = {
       id,
       title: `Random Card ${id}`,
       content: 'lorem ipsum',
     };*/
+    // Object.assign(this.props.store.allCards, {[id]: {
+    //   id,
+    //   title: `Random Card ${id}`,
+    //   content: 'lorem ipsum',
+    // }})
 
     this.setState({
       store: {
@@ -43,16 +48,22 @@ class App extends Component {
           return list;
         }),
         allCards: Object.assign(this.props.store.allCards, {[id]: {
-          id,
-          title: `Random Card ${id}`,
-          content: 'lorem ipsum',
-        }})
+            id,
+            title: `Random Card ${id}`,
+            content: 'lorem ipsum'
+          }})
       }
-    });
+    })
   }
-
   render() {
     const { store } = this.props
+    const cards = store.lists.map(list => {
+      console.log(list)
+      return list.cardIds.map(id => {
+        console.log(id)
+        console.log(store.allCards)
+      })
+    })
     return (
       <main className='App'>
         <header className='App-header'>
